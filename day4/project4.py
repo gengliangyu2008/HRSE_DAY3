@@ -14,6 +14,7 @@ import rospy
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import LaserScan
 from std_msgs.msg import String
+
 import math
 import random
 import numpy as np
@@ -95,11 +96,11 @@ def clearance():
 		m.angular.z = 0
 
 	elif scan90 < allowance or scan135 < allowance or scan45 < allowance:
-		m.linear.x = 0
+		m.linear.x = 0.2
 		m.angular.z = -0.2
 
 	elif scan270 < allowance or scan315 < allowance or scan225 < allowance:
-		m.linear.x = 0
+		m.linear.x = 0.2
 		m.angular.z = 0.2
 
 	pub.publish(m)
@@ -196,11 +197,11 @@ while(capture.isOpened()):
 
 		# TB3 Control Rules
 
-		sub = rospy.Subscriber('/cmd_vel', String, callback)
+		sub = rospy.Subscriber('/sensor_msgs', LaserScan, callback)
 		if scan0 < allowance or scan45 < allowance or scan90 < allowance or scan135 < allowance or scan180 < allowance or scan225 < allowance or scan270 < allowance or scan315 < allowance:
-			m.linear.x = 0
-			m.angular.z = 0
-			print('braking due to obstacles detected')
+			# m.linear.x = 0
+			# m.angular.z = 0
+			# print('braking due to obstacles detected')
 
 			clearance()
 			print('Clearing away from obstacles')
