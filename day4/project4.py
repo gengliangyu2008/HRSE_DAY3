@@ -8,12 +8,12 @@
 ##### Template Set; Look for "To be COMPLETED" #####
 
 # Import relevant libraries
-import string
 
 import cv2,time
 import rospy
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import LaserScan
+from std_msgs.msg import String
 import math
 import random
 import numpy as np
@@ -196,7 +196,7 @@ while(capture.isOpened()):
 
 		# TB3 Control Rules
 
-		sub = rospy.Subscriber('cmd_vel', string, callback)
+		sub = rospy.Subscriber('/cmd_vel', String, callback)
 		if scan0 < allowance or scan45 < allowance or scan90 < allowance or scan135 < allowance or scan180 < allowance or scan225 < allowance or scan270 < allowance or scan315 < allowance:
 			m.linear.x = 0
 			m.angular.z = 0
